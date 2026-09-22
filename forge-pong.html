@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anvil Pong // Smithville '86</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/meta/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/meta/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/meta/apple-touch-icon.png">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#006A4E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@400;500;600;700&family=Righteous&family=Satisfy&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest:#006A4E;
+    --forest-dark:#004E39;
+    --green-btn:#2E8B57;
+    --green-btn-hover:#EAF6EF;
+    --white:#ffffff;
+    --gold:#B08D3E;
+    --gold-light:#D8BE84;
+    --cream:#EAF6EF;
+    --charcoal:#1A1A1A;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0;padding:0;height:100%;
+    height:100dvh;
+    background:var(--forest);
+    font-family:'Jost', Arial, sans-serif;
+    color:var(--white);
+    overflow:hidden;
+    user-select:none;
+    overscroll-behavior:none;
+  }
+  #wrap{
+    position:relative;
+    width:100%;
+    max-width:800px;
+    margin:0 auto;
+    height:100%;
+    height:100dvh;
+    max-height:100dvh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0) 60%),
+      linear-gradient(180deg, var(--forest) 0%, var(--forest-dark) 100%);
+    overflow:hidden;
+  }
+  @media (min-width: 768px) {
+    body{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px;
+    }
+    #wrap{
+      aspect-ratio: 4 / 3;
+      height:auto;
+      max-height:calc(100dvh - 24px);
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,0.12);
+    }
+  }
+  #topbar{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 20px;
+    font-size:clamp(12px, 2.2vw, 16px);
+    font-weight:700;
+    letter-spacing:0.5px;
+    border-bottom:1px solid rgba(255,255,255,0.15);
+    flex-shrink:0;
+  }
+  #topbar .title{
+    display:flex; align-items:center; gap:8px;
+    color:var(--white);
+    font-family:'Righteous', cursive;
+    font-weight:400;
+  }
+  #topbar .title .mark{ color:var(--gold-light); font-size:1.2em; }
+  #topbar .tag{
+    color:var(--gold-light);
+    font-size:0.85em;
+    letter-spacing:1px;
+    text-transform:uppercase;
+  }
+  #score{
+    font-size:clamp(22px, 5vw, 40px);
+    font-weight:800;
+    letter-spacing:6px;
+    padding:6px 0;
+    flex-shrink:0;
+    color:var(--white);
+  }
+  #score .divider{ color:var(--gold-light); }
+  canvas{
+    display:block;
+    background:transparent;
+    touch-action:none;
+    width:100%;
+    flex:1;
+    min-height:0;
+  }
+  #overlay{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    text-align:center;
+    background:rgba(10,70,48,0.94);
+    z-index:10;
+    padding:20px;
+  }
+  #pong-lock{
+    position:fixed; inset:0; z-index:50;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:24px;
+    background:rgba(10,70,48,0.96);
+  }
+  #pong-lock[hidden]{ display:none !important; }
+  #pong-lock h1{
+    color:var(--white);
+    font-family:'Righteous', cursive;
+    font-size:clamp(26px, 6vw, 44px);
+    font-weight:400;
+    margin:0 0 10px 0;
+  }
+  #pong-lock .sub{
+    font-family:'Satisfy', cursive;
+    font-size:clamp(17px, 3.6vw, 24px);
+    max-width:520px;
+    margin-bottom:20px;
+    line-height:1.4;
+  }
+  #overlay .badge, #pong-lock .badge{
+    background:var(--gold);
+    color:var(--white);
+    font-weight:700;
+    font-size:clamp(10px, 2vw, 13px);
+    letter-spacing:1px;
+    text-transform:uppercase;
+    padding:6px 16px;
+    border-radius:999px;
+    margin-bottom:16px;
+  }
+  #overlay h1{
+    color:var(--white);
+    font-family:'Righteous', cursive;
+    font-size:clamp(26px, 6vw, 44px);
+    font-weight:400;
+    letter-spacing:0.5px;
+    margin:0 0 10px 0;
+  }
+  #overlay .sub{
+    font-family:'Satisfy', cursive;
+    font-size:clamp(17px, 3.6vw, 24px);
+    font-weight:400;
+    color:var(--white);
+    opacity:0.92;
+    margin-bottom:20px;
+    max-width:520px;
+    line-height:1.4;
+  }
+  .btnrow{
+    display:flex; gap:14px; flex-wrap:wrap; justify-content:center;
+    width:100%;
+    max-width:420px;
+  }
+  .pillbtn{
+    font-family:'Jost', Arial, sans-serif;
+    font-weight:700;
+    font-size:clamp(13px, 2.6vw, 16px);
+    padding:12px 26px;
+    border-radius:2rem;
+    cursor:pointer;
+    letter-spacing:0.3px;
+    border:2px solid transparent;
+    transition:background 0.15s ease, transform 0.1s ease, color 0.15s ease;
+    min-height:44px;
+  }
+  .pillbtn:active{ transform:scale(0.97); }
+  .pillbtn.solid{
+    background:var(--green-btn);
+    color:var(--white);
+    border-color:var(--green-btn);
+  }
+  .pillbtn.solid:hover{ background:var(--green-btn-hover); color:var(--forest-dark); }
+  .pillbtn.outline{
+    background:transparent;
+    color:var(--white);
+    border-color:var(--white);
+  }
+  .pillbtn.outline:hover{ background:rgba(255,255,255,0.1); }
+  #overlay .instructions{
+    margin-top:18px;
+    font-size:clamp(10px, 2vw, 12px);
+    color:var(--cream);
+    opacity:0.75;
+    line-height:1.6;
+    font-weight:600;
+  }
+  #footer{
+    width:100%;
+    text-align:center;
+    font-size:clamp(9px, 1.8vw, 11px);
+    color:var(--gold-light);
+    padding:8px 0 12px 0;
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+    letter-spacing:0.5px;
+    font-weight:700;
+    text-transform:uppercase;
+    flex-shrink:0;
+  }
+  @media (max-width: 575.98px) {
+    #overlay, #pong-lock { padding: 20px 16px; }
+    .pillbtn { width: 100%; }
+    #overlay .instructions { max-width: 280px; }
+  }
+</style>
+</head>
+<body>
+<div id="pong-lock" hidden>
+  <div class="badge">Classmates only</div>
+  <h1>Anvil Pong</h1>
+  <div class="sub">Same classmate passcode as the rest of the members area.</div>
+  <label for="pong-code" class="visually-hidden" style="position:absolute;left:-999px;">Classmate passcode</label>
+  <input id="pong-code" type="password" placeholder="Classmate passcode" autocomplete="off" aria-describedby="pong-lock-msg"
+    style="width:min(320px,100%);padding:12px 14px;margin:0 0 12px;border:2px solid #D8BE84;border-radius:4px;font-size:16px;font-family:'Jost',Arial,sans-serif;text-align:center;">
+  <div class="btnrow">
+    <button type="button" class="pillbtn solid" id="pong-unlock">Unlock and play</button>
+    <a class="pillbtn outline" href="index.html#gateway" style="text-decoration:none;display:inline-block;">Go to the gateway</a>
+  </div>
+  <p id="pong-lock-msg" role="status" aria-live="polite" style="min-height:1.3em;margin:14px 0 0;font-weight:600;"></p>
+</div>
+<div id="wrap">
+  <div id="topbar">
+    <span class="title"><span class="mark">&#9874;</span> Anvil Pong</span>
+    <a class="tag" href="index.html" style="color:inherit;text-decoration:none;">Class of '86 · Home</a>
+  </div>
+  <div id="score">00<span class="divider">&nbsp;&nbsp;:&nbsp;&nbsp;</span>00</div>
+  <canvas id="game"></canvas>
+  <div id="footer">First to 7 &mdash; Once Forged, Always a Smithie</div>
+
+  <div id="overlay">
+    <div class="badge">A Smithville '86 Digital Touchpoint Arcade</div>
+    <h1>Anvil Pong</h1>
+    <div class="sub">Same crest, same green and white &mdash; strictly for classmates who got forged together.</div>
+    <div class="btnrow">
+      <button class="pillbtn solid" id="startBtn">Start Game</button>
+      <a class="pillbtn outline" href="index.html" style="text-decoration:none;display:inline-block;">Back to class site</a>
+    </div>
+    <div class="instructions">
+      Mouse / touch / arrow keys / W&ndash;S to move your paddle &middot; Space or tap to serve &middot; First to 7 wins<br>
+      On a phone, drag your thumb on the court to move. Turn sideways for a wider court.
+    </div>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script>
+(function(){
+  var GATE_KEY = "smithville86_gate";
+  function isUnlocked() {
+    try { return window.localStorage.getItem(GATE_KEY) === "unlocked"; }
+    catch (e) { return false; }
+  }
+  function passcodeOk(val) {
+    var cfg = window.SHS86 || {};
+    var real = String(cfg.passcode || "").trim().toUpperCase();
+    return real && String(val || "").trim().toUpperCase() === real;
+  }
+  if (!isUnlocked()) {
+    var lock = document.getElementById("pong-lock");
+    var wrap = document.getElementById("wrap");
+    if (lock) lock.hidden = false;
+    if (wrap) wrap.style.display = "none";
+    var msg = document.getElementById("pong-lock-msg");
+    var input = document.getElementById("pong-code");
+    function fail(text) {
+      if (msg) { msg.textContent = text; msg.style.color = "#ffd0d0"; }
+      if (input) { input.focus(); input.select(); }
+    }
+    function tryUnlock() {
+      var val = input ? input.value : "";
+      if (!String(val).trim()) { fail("Type the classmate passcode first."); return; }
+      if (passcodeOk(val)) {
+        try { window.localStorage.setItem(GATE_KEY, "unlocked"); } catch (e) {}
+        window.location.reload();
+      } else {
+        fail("That's not it. Try again, or ask a classmate from the 40th for the passcode.");
+      }
+    }
+    var btn = document.getElementById("pong-unlock");
+    if (btn) btn.addEventListener("click", tryUnlock);
+    if (input) input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") { e.preventDefault(); tryUnlock(); }
+    });
+    return;
+  }
+
+  const canvas = document.getElementById('game');
+  const ctx = canvas.getContext('2d');
+  const overlay = document.getElementById('overlay');
+  const startBtn = document.getElementById('startBtn');
+  const scoreEl = document.getElementById('score');
+
+  let LW = 800, LH = 500;
+  let scale = 1;
+  const WIN_SCORE = 7;
+  const state = {
+    playerY: LH/2 - 40,
+    aiY: LH/2 - 40,
+    paddleH: 80,
+    paddleW: 12,
+    ballX: LW/2,
+    ballY: LH/2,
+    ballVX: 0,
+    ballVY: 0,
+    baseSpeed: 5.2,
+    playerScore: 0,
+    aiScore: 0,
+    running: false,
+    serving: true,
+    aiError: 0,
+    trail: []
+  };
+
+  function resize(){
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    const cssW = Math.max(1, rect.width);
+    const cssH = Math.max(1, rect.height);
+    canvas.width = Math.max(1, Math.floor(cssW * dpr));
+    canvas.height = Math.max(1, Math.floor(cssH * dpr));
+    LW = 800;
+    LH = Math.max(420, Math.round(800 * (cssH / cssW)));
+    scale = canvas.width / LW;
+    ctx.setTransform(scale, 0, 0, scale, 0, 0);
+    state.playerY = Math.max(0, Math.min(LH - state.paddleH, state.playerY));
+    state.aiY = Math.max(0, Math.min(LH - state.paddleH, state.aiY));
+    if (!state.running || state.serving) {
+      state.ballX = LW / 2;
+      state.ballY = LH / 2;
+    }
+  }
+  window.addEventListener('resize', resize);
+  window.addEventListener('orientationchange', function () { setTimeout(resize, 250); });
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', resize);
+  }
+
+  function resetBall(direction){
+    state.ballX = LW/2;
+    state.ballY = LH/2;
+    const angle = (Math.random() * 0.6 - 0.3);
+    const dir = direction || (Math.random() < 0.5 ? 1 : -1);
+    state.ballVX = state.baseSpeed * dir;
+    state.ballVY = state.baseSpeed * Math.sin(angle) * 1.4;
+    state.trail = [];
+  }
+
+  function fullReset(){
+    state.playerScore = 0;
+    state.aiScore = 0;
+    state.playerY = LH/2 - state.paddleH/2;
+    state.aiY = LH/2 - state.paddleH/2;
+    state.serving = true;
+    updateScore();
+    resetBall();
+  }
+
+  function updateScore(){
+    const p = String(state.playerScore).padStart(2,'0');
+    const a = String(state.aiScore).padStart(2,'0');
+    scoreEl.innerHTML = p + '<span class="divider">&nbsp;&nbsp;:&nbsp;&nbsp;</span>' + a;
+  }
+
+  let targetY = state.playerY;
+  let usingPointer = false;
+
+  function pointerToY(clientY){
+    const rect = canvas.getBoundingClientRect();
+    const relY = (clientY - rect.top) / rect.height;
+    return relY * LH - state.paddleH/2;
+  }
+
+  canvas.addEventListener('mousemove', (e)=>{
+    usingPointer = true;
+    targetY = pointerToY(e.clientY);
+  });
+  canvas.addEventListener('touchmove', (e)=>{
+    e.preventDefault();
+    usingPointer = true;
+    targetY = pointerToY(e.touches[0].clientY);
+  }, {passive:false});
+  canvas.addEventListener('touchstart', (e)=>{
+    e.preventDefault();
+    usingPointer = true;
+    targetY = pointerToY(e.touches[0].clientY);
+    tryServe();
+  }, {passive:false});
+  canvas.addEventListener('mousedown', tryServe);
+
+  const keys = {};
+  window.addEventListener('keydown', (e)=>{
+    if(['ArrowUp','ArrowDown','w','s','W','S',' '].includes(e.key)){
+      e.preventDefault();
+    }
+    keys[e.key] = true;
+    if(e.key === ' '){ tryServe(); }
+  });
+  window.addEventListener('keyup', (e)=>{ keys[e.key] = false; });
+
+  function tryServe(){
+    if(!state.running) return;
+    if(state.serving){
+      state.serving = false;
+      resetBall();
+    }
+  }
+
+  startBtn.addEventListener('click', ()=>{
+    overlay.style.display = 'none';
+    state.running = true;
+    state.serving = true;
+    fullReset();
+    loop();
+  });
+
+  function aiThink(){
+    const paddleCenter = state.aiY + state.paddleH/2;
+    const targetCenter = state.ballY + (state.aiError);
+    const diff = targetCenter - paddleCenter;
+    const maxSpeed = 4.6;
+    if(Math.abs(diff) > 4){
+      state.aiY += Math.sign(diff) * Math.min(maxSpeed, Math.abs(diff)*0.14 + 1.5);
+    }
+    state.aiY = Math.max(0, Math.min(LH - state.paddleH, state.aiY));
+  }
+
+  function update(){
+    if(keys['ArrowUp'] || keys['w'] || keys['W']){
+      targetY = state.playerY - 9;
+      usingPointer = false;
+    }
+    if(keys['ArrowDown'] || keys['s'] || keys['S']){
+      targetY = state.playerY + 9;
+      usingPointer = false;
+    }
+    state.playerY += (targetY - state.playerY) * (usingPointer ? 0.35 : 1);
+    state.playerY = Math.max(0, Math.min(LH - state.paddleH, state.playerY));
+
+    if(state.serving) return;
+
+    aiThink();
+
+    state.ballX += state.ballVX;
+    state.ballY += state.ballVY;
+
+    state.trail.push({x: state.ballX, y: state.ballY});
+    if(state.trail.length > 8) state.trail.shift();
+
+    if(state.ballY <= 6){ state.ballY = 6; state.ballVY *= -1; }
+    if(state.ballY >= LH-6){ state.ballY = LH-6; state.ballVY *= -1; }
+
+    const px = 24;
+    if(state.ballX - 6 <= px + state.paddleW &&
+       state.ballX - 6 >= px &&
+       state.ballY >= state.playerY &&
+       state.ballY <= state.playerY + state.paddleH &&
+       state.ballVX < 0){
+      const hitPos = (state.ballY - (state.playerY + state.paddleH/2)) / (state.paddleH/2);
+      const speed = Math.min(Math.hypot(state.ballVX, state.ballVY) * 1.06, 13);
+      state.ballVX = Math.abs(speed * Math.cos(hitPos*0.9));
+      state.ballVY = speed * Math.sin(hitPos*0.9) * 1.3;
+      state.ballX = px + state.paddleW + 6;
+      state.aiError = (Math.random()-0.5) * 60;
+    }
+
+    const ax = LW - 24 - state.paddleW;
+    if(state.ballX + 6 >= ax &&
+       state.ballX + 6 <= ax + state.paddleW &&
+       state.ballY >= state.aiY &&
+       state.ballY <= state.aiY + state.paddleH &&
+       state.ballVX > 0){
+      const hitPos = (state.ballY - (state.aiY + state.paddleH/2)) / (state.paddleH/2);
+      const speed = Math.min(Math.hypot(state.ballVX, state.ballVY) * 1.04, 13);
+      state.ballVX = -Math.abs(speed * Math.cos(hitPos*0.9));
+      state.ballVY = speed * Math.sin(hitPos*0.9) * 1.3;
+      state.ballX = ax - 6;
+    }
+
+    if(state.ballX < -20){
+      state.aiScore++;
+      updateScore();
+      checkWin();
+    } else if(state.ballX > LW+20){
+      state.playerScore++;
+      updateScore();
+      checkWin();
+    }
+  }
+
+  function checkWin(){
+    if(state.playerScore >= WIN_SCORE || state.aiScore >= WIN_SCORE){
+      state.serving = true;
+      const won = state.playerScore > state.aiScore;
+      showEndScreen(won);
+    } else {
+      state.serving = true;
+      state.playerY = LH/2 - state.paddleH/2;
+    }
+  }
+
+  function showEndScreen(won){
+    overlay.style.display = 'flex';
+    overlay.innerHTML = `
+      <div class="badge">${won ? 'Match Won' : 'Match Lost'}</div>
+      <h1>${won ? 'Forge Master!' : 'Bested at the Anvil'}</h1>
+      <div class="sub">Final score ${state.playerScore} &ndash; ${state.aiScore}. Once forged, always a Smithie.</div>
+      <div class="btnrow">
+        <button class="pillbtn solid" id="startBtn2">Play Again</button>
+      </div>
+      <div class="instructions">Mouse / touch / arrow keys / W&ndash;S to move your paddle</div>
+    `;
+    document.getElementById('startBtn2').addEventListener('click', ()=>{
+      overlay.style.display = 'none';
+      fullReset();
+    });
+    window.addEventListener('keydown', function onSpace(e){
+      if(e.key === ' '){
+        overlay.style.display = 'none';
+        fullReset();
+        window.removeEventListener('keydown', onSpace);
+      }
+    });
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,LW,LH);
+
+    ctx.strokeStyle = 'rgba(255,255,255,0.28)';
+    ctx.lineWidth = 3;
+    ctx.setLineDash([10,12]);
+    ctx.beginPath();
+    ctx.moveTo(LW/2, 0);
+    ctx.lineTo(LW/2, LH);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    drawRoundedRect(24, state.playerY, state.paddleW, state.paddleH, 6, '#ffffff', 'rgba(255,255,255,0.35)');
+    drawRoundedRect(LW-24-state.paddleW, state.aiY, state.paddleW, state.paddleH, 6, '#D8BE84', 'rgba(216,190,132,0.4)');
+
+    for(let i=0;i<state.trail.length;i++){
+      const t = state.trail[i];
+      const alpha = (i+1)/state.trail.length * 0.3;
+      ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+      ctx.shadowBlur = 0;
+      ctx.beginPath();
+      ctx.arc(t.x, t.y, 5, 0, Math.PI*2);
+      ctx.fill();
+    }
+
+    ctx.fillStyle = '#ffffff';
+    ctx.shadowColor = 'rgba(255,255,255,0.7)';
+    ctx.shadowBlur = 14;
+    ctx.beginPath();
+    ctx.arc(state.ballX, state.ballY, 7, 0, Math.PI*2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+
+    if(state.serving && state.running){
+      ctx.fillStyle = 'rgba(255,255,255,0.75)';
+      ctx.font = '700 16px "Jost", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('READY —', LW/2, LH/2 - 24);
+    }
+  }
+
+  function drawRoundedRect(x, y, w, h, r, fill, glow){
+    ctx.fillStyle = glow;
+    ctx.shadowColor = glow;
+    ctx.shadowBlur = 10;
+    ctx.beginPath();
+    ctx.moveTo(x+r, y);
+    ctx.arcTo(x+w, y, x+w, y+h, r);
+    ctx.arcTo(x+w, y+h, x, y+h, r);
+    ctx.arcTo(x, y+h, x, y, r);
+    ctx.arcTo(x, y, x+w, y, r);
+    ctx.closePath();
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = fill;
+    ctx.fill();
+  }
+
+  function loop(){
+    if(!state.running) return;
+    update();
+    draw();
+    requestAnimationFrame(loop);
+  }
+
+  function init(){
+    resize();
+    state.playerY = LH/2 - state.paddleH/2;
+    state.aiY = LH/2 - state.paddleH/2;
+    resetBall();
+    draw();
+  }
+  init();
+  window.addEventListener('load', resize);
+})();
+</script>
+</body>
+</html>

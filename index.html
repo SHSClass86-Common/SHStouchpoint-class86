@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#006A4E">
+<title>Smithville Smithies Class of 1986</title>
+<meta name="description" content="The private digital hangout for Green Local High School's Class of 1986 — Smithville, Ohio.">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/meta/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/meta/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/meta/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Smithville Smithies Class of 1986">
+<meta property="og:description" content="The private digital hangout for Green Local High School's Class of 1986 — Smithville, Ohio.">
+<meta property="og:image" content="assets/meta/og-image.png">
+<meta property="og:url" content="index.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Smithville Smithies Class of 1986">
+<meta name="twitter:description" content="The private digital hangout for Green Local High School's Class of 1986 — Smithville, Ohio.">
+<meta name="twitter:image" content="assets/meta/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@400;500;600;700;800&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<nav class="navbar navbar-expand-lg navbar-smithie sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <img src="assets/meta/crest.png" alt="" width="42" height="42">
+      <span>Smithville Smithies<span class="brand-sub">Class of '86 · Green Local</span></span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center">
+        <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="members-hub.html" data-needs-gate>Members Hub</a></li>
+        <li class="nav-item"><a class="nav-link" href="roster.html" data-needs-gate>Roster</a></li>
+        <li class="nav-item"><a class="nav-link" href="community.html" data-needs-gate>Community</a></li>
+        <li class="nav-item"><a class="nav-link" href="memories.html" data-needs-gate>Memories</a></li>
+        <li class="nav-item"><a class="nav-link" href="memorial.html" data-needs-gate>Memorial</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div id="boot-screen">
+  <div id="boot-lines" class="mono"></div>
+  <div id="boot-enter-row" class="mono">
+    > PRESS <button type="button" id="boot-enter-btn" class="btn-boot-enter">ENTER</button> TO CONNECT
+  </div>
+  <button type="button" id="skip-intro">skip intro >></button>
+</div>
+
+<main id="main">
+<header class="hero" id="top">
+  <div class="container position-relative">
+    <img src="assets/meta/crest.png" alt="Smithville Smithies crest" class="hero-logo" width="110" height="110">
+    <div class="years-badge">40 years since we left the forge</div>
+    <h1>Class of '86</h1>
+    <p class="lede">The unofficial hangout for the Smithville Smithies who graduated together in 1986. Same crest, same green and white — just for us.</p>
+    <div class="hero-actions">
+      <a href="#gateway" class="btn btn-forge">Enter the Anvil Gateway</a>
+      <a href="#mixtape" class="btn btn-outline-forge">The class mixtape</a>
+    </div>
+  </div>
+</header>
+
+<section class="section-pad" id="gateway">
+  <div class="container text-center">
+    <div class="section-eyebrow">Members only</div>
+    <h2 class="section-title">The Anvil Alumni Gateway</h2>
+    <p class="section-sub mx-auto mb-4">One passcode opens the roster, reunion photos, and memorial. It's a courtesy lock for classmates — share the code with the Class of '86, not the internet.</p>
+    <div class="gateway-panel">
+      <svg class="lock-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+      <h3 class="h5 mb-0">Classmate passcode</h3>
+      <p id="gateway-already" hidden class="gate-note mb-0 mt-2">You're already in. Head to the Members Hub whenever you're ready.</p>
+      <input type="password" id="gateway-passcode" placeholder="Passcode" autocomplete="off" aria-label="Classmate passcode" aria-describedby="gateway-msg">
+      <button type="button" class="btn btn-forge w-100" id="gateway-submit">Unlock the Digital Touchpoint</button>
+      <div id="gateway-msg" class="mt-2" role="status" aria-live="polite"></div>
+      <p class="gate-note">Don't have the passcode? Ask a classmate who was at the 40th, or use the committee email in the footer once it's been added.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad bg-paper" id="profiles">
+  <div class="container">
+    <div class="row justify-content-center align-items-center g-5">
+      <div class="col-md-5 text-center">
+        <div class="yearbook-frame">
+          <img src="assets/yearbook-cover.jpeg" alt="This I Remember, Eighty Six — Smithville Smithies yearbook cover" class="yearbook-cover-img" width="300">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="section-eyebrow">This I Remember</div>
+        <h2 class="section-title left">The classmate roster</h2>
+        <p style="color:#5c5850;">Senior portraits from the 1986 yearbook, plus the classmates listed as not pictured. Unlock the gateway, then browse, search, and send in a life update.</p>
+        <p style="color:#5c5850;">Profiles are a yearbook snapshot until you write in. Updates go to the committee (Google Form or email) so they show up for everyone — not just on your own computer.</p>
+        <a href="roster.html" class="btn btn-forge me-2" data-needs-gate>View the roster</a>
+        <a href="#" class="btn btn-outline-darkforge" data-action="claim-profile">Update my page</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="mixtape">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="section-eyebrow">Side A / Side B</div>
+      <h2 class="section-title">The Class of '86 mixtape</h2>
+      <p class="section-sub mx-auto">A living playlist. It starts with the year's biggest hits — add your own any time.</p>
+    </div>
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-5">
+        <div class="cassette">
+          <div class="tape-label">CLASS OF '86 · SIDE A</div>
+          <div class="reel-row"><div class="reel"></div><div class="reel"></div></div>
+          <div class="tape-label" style="font-size:.9rem;">DO NOT ERASE</div>
+        </div>
+        <ol class="track-list mb-0 ps-3">
+          <li>"Take My Breath Away" — Berlin</li>
+          <li>"That's What Friends Are For" — Dionne Warwick & Friends</li>
+          <li>"Papa Don't Preach" — Madonna</li>
+          <li>"Higher Love" — Steve Winwood</li>
+          <li>"Word Up!" — Cameo</li>
+          <li>"Broken Wings" — Mr. Mister</li>
+          <li>"The Way It Is" — Bruce Hornsby & the Range</li>
+          <li>"Walk Like an Egyptian" — The Bangles</li>
+        </ol>
+      </div>
+      <div class="col-lg-7">
+        <div class="mixtape-wrap">
+          <h3 class="h5 mb-3">Listen & add your own</h3>
+          <div id="spotify-embed"></div>
+          <p class="spotify-note" id="spotify-placeholder-note">The class mixtape playlist will appear here once the committee adds it. Until then, the Side A track list is the tape.</p>
+          <div class="text-center mt-3">
+            <a href="#" class="btn btn-outline-forge" data-action="mixtape">Submit a song</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad bg-paper" id="next">
+  <div class="container">
+    <div class="row g-4 align-items-stretch">
+      <div class="col-lg-7">
+        <div class="reunion-event-card h-100">
+          <div class="reunion-event-banner">
+            <span class="re-eyebrow">Smithville, Ohio</span>
+            <h3 data-gathering="title">The Next Time We Gather</h3>
+          </div>
+          <div class="reunion-event-details">
+            <div class="re-detail-row">
+              <div>
+                <div class="re-detail-label">When</div>
+                <div class="re-detail-value" data-gathering="date">Date to be announced</div>
+              </div>
+            </div>
+            <div class="re-detail-row">
+              <div>
+                <div class="re-detail-label">Where</div>
+                <div class="re-detail-value" data-gathering="venue">Smithville, Ohio</div>
+              </div>
+            </div>
+            <p class="mb-3" data-gathering="blurb">The 40th was a gift. When the committee picks a date for the next one, it will show up here.</p>
+            <a href="#" class="btn btn-forge" data-action="rsvp">Tell us you'll come</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5 d-flex">
+        <a class="pong-teaser flex-fill" href="forge-pong.html" data-needs-gate>
+          <div>
+            <div class="section-eyebrow" style="color:var(--gold-light);">Take a break</div>
+            <h3>Anvil Pong</h3>
+            <p>First to 7. Mouse, finger, or W and S. Same green and white.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="miss">
+  <div class="container">
+    <div class="text-center mb-4">
+      <div class="section-eyebrow">Nostalgia check</div>
+      <h2 class="section-title">Things we miss</h2>
+      <p class="section-sub mx-auto">The stuff that made 1986 feel like 1986 — Smithville edition.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4"><div class="miss-card"><h4>Trapper Keepers</h4><p>The Velcro rip heard across every homeroom in America.</p></div></div>
+      <div class="col-md-6 col-lg-4"><div class="miss-card"><h4>Members Only jackets</h4><p>Snap collar up, hands in pockets, instant main-character energy.</p></div></div>
+      <div class="col-md-6 col-lg-4"><div class="miss-card"><h4>MTV, actually playing videos</h4><p>Waiting an hour for your favorite one to come back around.</p></div></div>
+      <div class="col-md-6 col-lg-4"><div class="miss-card"><h4>Mixtape swapping</h4><p>Forty-five minutes of careful button-mashing on a dual cassette deck.</p></div></div>
+      <div class="col-md-6 col-lg-4"><div class="miss-card"><h4>Cruising in Town</h4><p>Waiting an hour in various sections of the crawling party in the streets to get back to the beginning of the loop.</p></div></div>
+      <div class="col-md-6 col-lg-4"><div class="miss-card"><h4>The kitchen landline</h4><p>Cord stretched down the hall for privacy that never actually came.</p></div></div>
+      <div class="col-md-6 col-lg-4"><div class="miss-card"><h4>Top Gun at the theater</h4><p>Half the class walked out wanting aviators and a callsign.</p></div></div>
+      <div class="col-md-6 col-lg-4"><div class="miss-card"><h4>Senior year in green and white</h4><p>The last lap around Smithville before the forge sent us out into the world.</p></div></div>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="footer-smithie">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-5">
+        <div class="footer-brand">
+          <img src="assets/meta/crest.png" alt="" width="40" height="40">
+          Smithville Smithies · Class of '86
+        </div>
+        <p>A private digital hangout for Green Local High School's Class of 1986 — Smithville, Ohio. Built by classmates, for classmates.</p>
+      </div>
+      <div class="col-md-3">
+        <h6>Around the site</h6>
+        <ul class="list-unstyled">
+          <li><a href="members-hub.html" data-needs-gate>Members Hub</a></li>
+          <li><a href="roster.html" data-needs-gate>Classmate roster</a></li>
+          <li><a href="community.html" data-needs-gate>Community</a></li>
+          <li><a href="memories.html" data-needs-gate>Memories</a></li>
+          <li><a href="memorial.html" data-needs-gate>Memorial</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h6>Reach the committee</h6>
+        <ul class="list-unstyled">
+          <li data-contact-email><a data-contact-email data-mail-subject="Class of '86" href="#">Email the committee</a></li>
+          <li data-facebook><a data-facebook href="#" target="_blank" rel="noopener">Facebook group</a></li>
+          <li data-missing-contact>The committee hasn't published a contact email yet. Ask a classmate from the 40th if you need to write in.</li>
+          <li><a href="admin.html">Admin how-to</a></li>
+          <li><a href="index.html#gateway" data-lock-site>Lock the members area</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="fine-print">&copy; 2026 Smithville Smithies Class of 1986. Not an official Green Local Schools site. Once forged, always a Smithie.</p>
+  </div>
+</footer>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>

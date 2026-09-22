@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin how-to | Smithville Smithies Class of 1986</title>
+<meta name="description" content="Plain-English instructions for keeping the Class of 1986 site up to date.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#006A4E">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/meta/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/meta/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/meta/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Admin how-to | Smithville Smithies Class of 1986">
+<meta property="og:description" content="Plain-English instructions for keeping the Class of 1986 site up to date.">
+<meta property="og:image" content="assets/meta/og-image.png">
+<meta property="og:url" content="admin.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Admin how-to | Smithville Smithies Class of 1986">
+<meta name="twitter:description" content="Plain-English instructions for keeping the Class of 1986 site up to date.">
+<meta name="twitter:image" content="assets/meta/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@400;500;600;700;800&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<nav class="navbar navbar-expand-lg navbar-smithie sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <img src="assets/meta/crest.png" alt="" width="42" height="42">
+      <span>Smithville Smithies<span class="brand-sub">Class of '86 · Green Local</span></span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center">
+        <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="members-hub.html">Members Hub</a></li>
+        <li class="nav-item"><a class="nav-link" href="roster.html">Roster</a></li>
+        <li class="nav-item"><a class="nav-link" href="community.html">Community</a></li>
+        <li class="nav-item"><a class="nav-link" href="memories.html">Memories</a></li>
+        <li class="nav-item"><a class="nav-link" href="memorial.html">Memorial</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<header class="page-header">
+  <div class="container">
+    <nav aria-label="breadcrumb"><ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li><li class="breadcrumb-item active" aria-current="page">Admin how-to</li>
+    </ol></nav>
+    <h1>Keeping the site going</h1>
+    <p>Written for classmates who are not web developers. One file does most of the work.</p>
+  </div>
+</header>
+
+<main id="main">
+<section class="section-pad">
+  <div class="container" style="max-width:760px;">
+    <div class="admin-callout mb-4">
+      <strong>The short version.</strong> Almost everything you will ever change lives in
+      <code>js/config.js</code>. Open it in Notepad (Windows) or TextEdit (Mac), change the words inside the quotes, save, and upload that one file back to GitHub. You do not need to touch the other files for passcodes, email, Facebook, Google Forms, Spotify, or the next reunion date.
+    </div>
+
+    <div id="admin-status" class="mb-5"></div>
+
+    <h2>Before you publish</h2>
+    <ol>
+      <li><strong>Change the passcode</strong> in <code>js/config.js</code> from the starter code to something only the class will guess. Share it at a gathering, in the Facebook group, or by email — not in a public post.</li>
+      <li><strong>Put a committee email</strong> in <code>contactEmail</code> so “Open in Email” works. Until you do, classmates can still write a note and copy it.</li>
+      <li>Paste the Facebook group link if you have one.</li>
+      <li>Form share links (Jotform) are already in <code>js/config.js</code>. To replace one later, paste the new Share link into the matching line under <code>forms</code>.</li>
+      <li>Optional: create a public Spotify playlist and paste only the playlist ID (the letters after <code>/playlist/</code>).</li>
+      <li>After the site is live, paste the public web address into <code>siteUrl</code> so shared links show the crest picture.</li>
+    </ol>
+
+    <h2 class="mt-5">How to put this on GitHub Pages</h2>
+    <div class="howto-step"><div class="howto-num">1</div><div>Create a free GitHub account if you don’t have one. Create a new repository. If you want the address <em>yourname.github.io</em>, name the repository exactly <code>yourname.github.io</code>. Otherwise any name is fine (the address will be <code>yourname.github.io/that-name</code>).</div></div>
+    <div class="howto-step"><div class="howto-num">2</div><div>Upload <strong>the contents of this folder</strong> — <code>index.html</code>, the <code>css</code>, <code>js</code>, and <code>assets</code> folders — not a zip file sitting in a subfolder. GitHub Pages looks for <code>index.html</code> at the top.</div></div>
+    <div class="howto-step"><div class="howto-num">3</div><div>In the repository, open <strong>Settings → Pages</strong>. Under Source, choose <strong>Deploy from a branch</strong>, branch <strong>main</strong>, folder <strong>/ (root)</strong>. Save. Wait a minute or two.</div></div>
+    <div class="howto-step"><div class="howto-num">4</div><div>Visit the address GitHub shows you. If a page looks old, give it a couple of minutes — Pages is not instant. Then paste that address into <code>siteUrl</code> in <code>js/config.js</code> and upload the file again.</div></div>
+
+    <h2 class="mt-5">The five class forms</h2>
+    <p>These are live. Each button on the site opens the matching Jotform. Submissions go to <code>SHSClass86@proton.me</code>.</p>
+    <ul>
+      <li>Update my classmate page</li>
+      <li>Add songs to the mixtape</li>
+      <li>Memorial note</li>
+      <li>Send a photo</li>
+      <li>Next gathering (interest only — not a real RSVP)</li>
+    </ul>
+    <p>To swap a form, copy its Share link from Jotform and paste it over the old one in <code>js/config.js</code> under <code>forms</code>. Leave a line as <code>""</code> and that button falls back to email.</p>
+
+    <h2 class="mt-5">Everyday updates</h2>
+    <ul>
+      <li><strong>Change the passcode</strong> — edit <code>passcode</code> in <code>js/config.js</code>.</li>
+      <li><strong>Announce a date</strong> — edit the three lines under <code>nextGathering</code>.</li>
+      <li><strong>Add an announcement</strong> — open <code>community.html</code>, find an existing <code>announcement-card</code>, copy the whole block, change the words between the tags. Don’t delete the <code><div></code> pieces.</li>
+      <li><strong>Add a reunion photo</strong> — drop a <code>.jpg</code> in <code>assets/reunion40/</code> (or a new folder), then copy one of the <code><a href=...></code> lines in <code>memories.html</code> and point it at your new file.</li>
+      <li><strong>Add a classmate to the roster</strong> — add a portrait to <code>assets/classmates/</code> and a new line to the list at the top of <code>js/roster.js</code>.</li>
+      <li><strong>Put a life update on someone’s page</strong> — in that person’s line in <code>js/roster.js</code>, add <code>bio: "A short paragraph."</code> before the closing brace.</li>
+      <li><strong>Add someone to the memorial</strong> — copy a card in <code>memorial.html</code> and add <code>inMemoriam: true</code> to that person in <code>js/roster.js</code>.</li>
+    </ul>
+
+    <h2 class="mt-5">What this site will not do (on purpose)</h2>
+    <p>GitHub Pages is a free stack of files. It cannot log people in, store RSVPs, or save a profile that other classmates will see. Those things need a Google Form or an email. This site is honest about that — there are no fake “submit” buttons that pretend a head-count is happening.</p>
+    <p>The classmate passcode is a courtesy lock. Anyone who knows how to view the settings file can find it. That is normal for a free GitHub Pages site. Share the code with the class, not the internet.</p>
+    <p>The classmate roster is the 1986 yearbook list: 63 senior portraits plus 8 classmates marked “not pictured” (71 names). That count is intentional — do not trim it to a different class-size number. Classmates without a yearbook portrait keep the “Not pictured, 1986” note. Life updates stay empty until a classmate writes in and you paste a short <code>bio</code> on their line in <code>js/roster.js</code>. Six roster names are marked in memoriam, and the memorial page also honors Michael D. Hartzler, a Smithville classmate through 8th grade.</p>
+
+    <p class="mt-4"><a href="index.html" class="btn btn-forge">Back to the home page</a></p>
+  </div>
+</section>
+</main>
+<footer class="footer-smithie">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-5">
+        <div class="footer-brand">
+          <img src="assets/meta/crest.png" alt="" width="40" height="40">
+          Smithville Smithies · Class of '86
+        </div>
+        <p>A private digital hangout for Green Local High School's Class of 1986 — Smithville, Ohio. Built by classmates, for classmates.</p>
+      </div>
+      <div class="col-md-3">
+        <h6>Around the site</h6>
+        <ul class="list-unstyled">
+          <li><a href="members-hub.html">Members Hub</a></li>
+          <li><a href="roster.html">Classmate roster</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="memories.html">Memories</a></li>
+          <li><a href="memorial.html">Memorial</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h6>Reach the committee</h6>
+        <ul class="list-unstyled">
+          <li data-contact-email><a data-contact-email data-mail-subject="Class of '86" href="#">Email the committee</a></li>
+          <li data-facebook><a data-facebook href="#" target="_blank" rel="noopener">Facebook group</a></li>
+          <li data-missing-contact>The committee hasn't published a contact email yet. Ask a classmate from the 40th if you need to write in.</li>
+          <li><a href="admin.html">Admin how-to</a></li>
+          <li><a href="index.html#gateway" data-lock-site>Lock the members area</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="fine-print">&copy; 2026 Smithville Smithies Class of 1986. Not an official Green Local Schools site. Once forged, always a Smithie.</p>
+  </div>
+</footer>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>

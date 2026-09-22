@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page not found | Smithville '86</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/meta/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/meta/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/meta/apple-touch-icon.png">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#006A4E">
+<style>
+  html, body { margin: 0; background: #0c0f0c; color: #33ff66; font-family: "VT323", "Courier New", monospace; min-height: 100vh; }
+  body { display: flex; align-items: center; justify-content: center; padding: 6vh 6vw; }
+  .box { max-width: 640px; width: 100%; }
+  pre { font-size: 1.25rem; line-height: 1.5; white-space: pre-wrap; font-family: inherit; margin: 0; }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.75rem; }
+  a.ret {
+    display: inline-block; font-size: 1.2rem; color: #33ff66;
+    border: 2px solid #33ff66; padding: 0.45rem 1.2rem; text-decoration: none; letter-spacing: 0.08em;
+    min-height: 44px; line-height: 1.6;
+  }
+  a.ret:hover { background: #33ff66; color: #0c0f0c; }
+  .fine { font-family: "Segoe UI", Arial, sans-serif; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.55; margin-top: 2.4rem; }
+</style>
+</head>
+<body>
+  <div class="box">
+    <pre>SMITHVILLE '86 DIGITAL TOUCHPOINT
+
+ERROR 404: PAGE NOT FOUND
+
+The forge is cold on this one, Smithie.
+That page got moved, renamed, or never existed.
+
+Try heading back to home base.</pre>
+    <div class="actions">
+      <a class="ret" id="home-link" href="index.html">> RETURN TO HOME BASE</a>
+      <a class="ret" href="javascript:history.back()">> GO BACK</a>
+    </div>
+    <p class="fine">Smithville Smithies · Class of '86</p>
+  </div>
+  <script>
+  (function () {
+    /* GitHub Pages keeps the missing URL when it shows this file, so a
+       relative "index.html" would look in the wrong folder. Aim at the
+       site root: / for a user site, /repo/ for a project site. */
+    var a = document.getElementById("home-link");
+    if (!a) return;
+    var segs = (location.pathname || "/").split("/").filter(Boolean);
+    var href = "index.html";
+    if (location.hostname.indexOf("github.io") !== -1) {
+      if (segs.length && segs[0].indexOf(".") === -1) {
+        href = "/" + segs[0] + "/";
+      } else {
+        href = "/";
+      }
+    } else if (location.protocol !== "file:") {
+      href = "/";
+    }
+    a.setAttribute("href", href);
+  })();
+  </script>
+</body>
+</html>
