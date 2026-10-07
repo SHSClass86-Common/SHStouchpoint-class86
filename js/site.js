@@ -229,7 +229,7 @@
     var siteUrl = (cfg.siteUrl || "").replace(/\/$/, "");
     if (siteUrl) {
       qsa('meta[property="og:image"], meta[name="twitter:image"]').forEach(function (m) {
-        m.setAttribute("content", siteUrl + "/assets/meta/og-image.png");
+        m.setAttribute("content", siteUrl + "/meta/og-image.png");
       });
       qsa('meta[property="og:url"]').forEach(function (m) {
         var page = location.pathname.split("/").pop() || "index.html";
