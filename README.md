@@ -35,6 +35,3 @@ These are the only things a person still has to type in. The site works without 
 ## Courtesy lock
 
 The passcode lives in `js/config.js`. Anyone who can view that file can find it. That is normal for a free GitHub Pages site. It keeps casual visitors out; it is not bank security.
-
-
-THIS IS A TEST LINE TO CONFIRM COMMIT AND SSH CONFIG STATUS -- will be removed after confirmation
